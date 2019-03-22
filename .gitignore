@@ -134,3 +134,4 @@ current_version.txt
 .idea
 .vscode
 storybook-static/
+package-lock.json
