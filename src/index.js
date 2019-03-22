@@ -1,24 +1,28 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { styleLog } from "./utils"
 
-import PageLayout from "./js/views/PageLayout.jsx";
-import FormContainer from "Containers/FormContainer.jsx";
+import { PageLayout } from "./js/views/PageLayout.jsx";
+import { Form } from "Containers/FormContainer.jsx";
+import { Items } from "Components/presentational/Items.jsx";
 
-import store from "./js/store/index";
-import { addItem } from "./js/actions/index";
-window.store = store;
-window.addItem = addItem;
+import store from "Store";
 
 import 'Styles/main.scss'
 
 const App = () => {
   return (
-    <PageLayout><FormContainer /></PageLayout>
+    <PageLayout><Form /><Items /></PageLayout>
   );
 };
 
 export default App;
 
 const appContainer = document.getElementById("App")
-console.log(`App Loaded in: ${appContainer.localName}.${appContainer.id}`)
-appContainer ? ReactDOM.render(<App />, appContainer): false
+!appContainer && console.log(`%cLoading App failed: ${appContainer}`, styleLog("red"))
+
+appContainer && (
+  console.log(`%cLoading App in: ${appContainer.localName}.${appContainer.id}`, styleLog("green")),
+  render(<Provider store={store}><App /></Provider>, appContainer)
+)
