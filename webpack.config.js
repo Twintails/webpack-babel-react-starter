@@ -52,6 +52,7 @@ module.exports = {
     alias: {
       // Alias paths so that e.g. "../../components/File" becomes "Components/File"
       Actions: path.resolve(__dirname, 'src/js/actions'),
+      App: path.resolve(__dirname, 'src'),
       Components: path.resolve(__dirname, 'src/js/components'),
       Constants: path.resolve(__dirname, 'src/js/constants'),
       Containers: path.resolve(__dirname, 'src/js/components/containers'),

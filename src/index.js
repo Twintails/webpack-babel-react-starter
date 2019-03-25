@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { styleLog } from "./utils"
+import { styleLog } from "App/utils"
 
 import { PageLayout } from "./js/views/PageLayout.jsx";
 import { Form } from "Containers/FormContainer.jsx";
