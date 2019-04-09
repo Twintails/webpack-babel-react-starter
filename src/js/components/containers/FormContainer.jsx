@@ -1,10 +1,8 @@
 import React, { Component } from "react"
-import ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import uuidv1 from "uuid"
-import { waitASecond } from "App/utils";
 
-import { addItemRequest, addItemResolve } from "Actions"
+import { addItem } from "Actions"
 
 import Input from "../presentational/Input.jsx"
 
@@ -16,8 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addItemRequest: () => dispatch(addItemRequest()),
-    addItemResolve: item => dispatch(addItemResolve(item))
+    addItem: item => dispatch(addItem(item)),
   };
 }
 
@@ -35,8 +32,7 @@ class FormContainer extends Component {
     const { title } = this.state;
     const id = uuidv1();
 
-    this.props.addItemRequest();
-    waitASecond({ title, id }).then(response => this.props.addItemResolve(response));
+    this.props.addItem({ title, id });
 
     this.setState((state) => {
       return {...state, title: state.title}
@@ -68,4 +64,4 @@ class FormContainer extends Component {
 
 const Form = connect(mapStateToProps, mapDispatchToProps)(FormContainer);
 
-export {Form};
+export { Form };
