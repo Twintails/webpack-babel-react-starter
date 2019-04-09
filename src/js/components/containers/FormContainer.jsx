@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import uuidv1 from "uuid"
 import { waitASecond } from "App/utils";

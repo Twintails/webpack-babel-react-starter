@@ -1,7 +1,6 @@
 import uuidv1 from "uuid"
 
 import {
-    ADD_ITEM, REMOVE_ITEM,
     ADD_ITEM_REQUEST, ADD_ITEM_RESOLVE,
     REMOVE_ITEM_REQUEST, REMOVE_ITEM_RESOLVE,
 } from '../constants/action-types'
@@ -18,12 +17,6 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-    if (action.type === ADD_ITEM) {
-      return { ...state,  items: state.items.concat(action.payload) }
-    }
-    if (action.type === REMOVE_ITEM) {
-      return { ...state, items: state.items.filter(item => item.id !== action.payload) }
-    }
     if (action.type === ADD_ITEM_REQUEST) {
         return { ...state, loading: true };
     }
