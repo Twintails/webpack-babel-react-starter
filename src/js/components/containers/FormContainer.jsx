@@ -2,39 +2,49 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import { connect } from "react-redux"
 import uuidv1 from "uuid"
+import { waitASecond } from "App/utils";
 
-import { addItem } from "Actions"
+import { addItemRequest, addItemResolve } from "Actions"
 
 import Input from "../presentational/Input.jsx"
 
+function mapStateToProps(state) {
+    return {
+        loading: state.loading
+    };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-    addItem: item => dispatch(addItem(item))
+    addItemRequest: () => dispatch(addItemRequest()),
+    addItemResolve: item => dispatch(addItemResolve(item))
   };
 }
 
 class FormContainer extends Component {
   state = {
     title: "Change Me"
-  }
+  };
 
   handleChange = (event) => {
     this.setState({ [event.target.id]: event.target.value })
-  }
+  };
 
   handleSubmit = (event) => {
-    event.preventDefault()
-    const { title } = this.state
-    const id = uuidv1()
+    event.preventDefault();
+    const { title } = this.state;
+    const id = uuidv1();
 
-    this.props.addItem({ title, id })
+    this.props.addItemRequest();
+    waitASecond({ title, id }).then(response => this.props.addItemResolve(response));
+
     this.setState((state) => {
       return {...state, title: state.title}
     })
-  }
+  };
 
   render() {
-    const { title } = this.state
+    const { title } = this.state;
     return (
       <form id="item-form" className="col-md-4 offset-md-1" onSubmit={this.handleSubmit}>
         <fieldset id="create-item-form">
@@ -48,14 +58,14 @@ class FormContainer extends Component {
             handleChange={this.handleChange}
           />
         </fieldset>
-        <button type="submit" className="btn btn-default btn-lg">
-          SAVE
+        <button type="submit" className="btn btn-default btn-lg" disabled={this.props.loading}>
+          { this.props.loading ? 'Wait...' : 'SAVE' }
         </button>
       </form>
     );
   }
 }
 
-const Form = connect(null, mapDispatchToProps)(FormContainer);
+const Form = connect(mapStateToProps, mapDispatchToProps)(FormContainer);
 
 export {Form};
