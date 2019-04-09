@@ -1,5 +1,3 @@
-export const ADD_ITEM = "ADD_ITEM";
-export const REMOVE_ITEM = "REMOVE_ITEM";
 export const ADD_ITEM_REQUEST = "ADD_ITEM_REQUEST";
 export const ADD_ITEM_RESOLVE = "ADD_ITEM_RESOLVE";
 export const REMOVE_ITEM_REQUEST = "REMOVE_ITEM_REQUEST";
